@@ -1,5 +1,7 @@
 import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
 import { StudentControllers } from './student.controller';
+import { updateStudentValidationSchema } from './student.zod.validation';
 
 const router = express.Router();
 
@@ -9,6 +11,11 @@ router.get('/get-all-students', StudentControllers.getAllStudents);
 router.get(
   '/get-single-student/:studentId',
   StudentControllers.getSingleStudent,
+);
+router.patch(
+  '/:studentId',
+  validateRequest(updateStudentValidationSchema),
+  StudentControllers.updateStudent,
 );
 router.delete('/:studentId', StudentControllers.deleteStudent);
 
