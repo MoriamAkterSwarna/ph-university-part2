@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from 'http-status';
 import mongoose from 'mongoose';
@@ -71,10 +72,11 @@ const createStudentIntoDB = async (
     await session.commitTransaction();
     await session.endSession();
     return newStudent;
-  } catch (err) {
+  } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new AppError(httpStatus.BAD_REQUEST, 'Failed To create a Student');
+    // throw new AppError(httpStatus.BAD_REQUEST, 'Failed To create a Student');
+    throw new Error(err);
   }
 
   // return result;

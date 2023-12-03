@@ -14,7 +14,10 @@ import { StudentServices } from './student.service';
 // const getAllStudents = catchAsync(async (req, res, next) => {       //catchAsync function from this file
 const getAllStudents = catchAsync(async (req, res) => {
   //catchAsync function from catchAsync.ts file
-  const result = await StudentServices.getAllStudentsFromDB();
+  console.log(req.query);
+  // const result = await StudentServices.getAllStudentsFromDB();
+  const result = await StudentServices.getAllStudentsFromDB(req.query);
+  // console.log(result, 'from con');
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
