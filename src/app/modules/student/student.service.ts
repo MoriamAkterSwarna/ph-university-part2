@@ -135,6 +135,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   const result = await studentQuery;
   return result;
 };
+
 const getSingleStudentsFromDB = async (id: string) => {
   const result = await Student.findOne({ id })
     .populate('admissionSemester')
@@ -145,6 +146,7 @@ const getSingleStudentsFromDB = async (id: string) => {
   // const result = await Student.aggregate([{ $match: { id: id } }]);
   return result;
 };
+
 const deleteStudentFromDB = async (id: string) => {
   const session = await mongoose.startSession();
   try {

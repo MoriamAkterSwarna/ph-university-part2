@@ -9,7 +9,7 @@ import {
   TUserName,
 } from './student/student.interface';
 
-const userNameSchema = new Schema<TUserName>({
+export const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: [true, 'First name is required'],
@@ -41,7 +41,7 @@ const userNameSchema = new Schema<TUserName>({
     },
   },
 });
-const guardianSchema = new Schema<TGuardian>({
+export const guardianSchema = new Schema<TGuardian>({
   fatherName: {
     type: String,
     required: true,
@@ -67,7 +67,7 @@ const guardianSchema = new Schema<TGuardian>({
     required: true,
   },
 });
-const localGuardianSchema = new Schema<TLocalGuardian>({
+export const localGuardianSchema = new Schema<TLocalGuardian>({
   name: { type: String, required: true },
   occupation: { type: String, required: true },
   contactNo: { type: String, required: true },
