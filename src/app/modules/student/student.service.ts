@@ -137,7 +137,8 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleStudentsFromDB = async (id: string) => {
-  const result = await Student.findOne({ id })
+  // const result = await Student.findOne({ id }) //using custom  generated id
+  const result = await Student.findById({ id }) //using mongodb _id
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -153,7 +154,9 @@ const deleteStudentFromDB = async (id: string) => {
     session.startTransaction();
 
     //  const result = await Student.updateOne({ id }, { isDeleted: true });
-    const deletedStudent = await Student.findOneAndUpdate(
+    // const deletedStudent = await Student.findOneAndUpdate(  //using custom generated id
+    const deletedStudent = await Student.findByIdAndUpdate(
+      //using mongodb _id
       { id },
       { isDeleted: true },
       { new: true, session },
@@ -162,8 +165,15 @@ const deleteStudentFromDB = async (id: string) => {
     if (!deletedStudent) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete student');
     }
-    const deleteUser = await User.findOneAndUpdate(
-      { id },
+
+    // get user _id from deletedStudent
+    const userId = deletedStudent.user;
+
+    // const deleteUser = await User.findOneAndUpdate( //using custom generated id
+    const deleteUser = await User.findByIdAndUpdate(
+      //using mongodb _id
+      // { id }, //using custom generated id
+      userId, //using mongodb _id
       { isDeleted: true },
       { new: true, session },
     );
@@ -215,7 +225,10 @@ const updateStudentFromDB = async (id: string, payload: Partial<TStudent>) => {
   console.log(modifiedUpdatedData);
 
   // const result = await Student.findOneAndUpdate({ id }, payload, { new: true });
-  const result = await Student.findOneAndUpdate({ id }, modifiedUpdatedData, {
+
+  // const result = await Student.findOneAndUpdate({ id }, modifiedUpdatedData, {  //using custom generated id
+  const result = await Student.findByIdAndUpdate({ id }, modifiedUpdatedData, {
+    //using mongodb _id
     new: true,
     runValidators: true,
   });

@@ -12,7 +12,7 @@ class QueryBuilder<T> {
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm as string;
     if (searchTerm) {
-      this.modelQuery = this?.modelQuery?.find({
+      this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
           field =>
             ({
@@ -42,15 +42,15 @@ class QueryBuilder<T> {
   sort() {
     const sortBy =
       (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
-    this.modelQuery = this?.modelQuery?.sort(sortBy as string);
+    this.modelQuery = this.modelQuery.sort(sortBy as string);
     return this;
   }
   paginate() {
     const page = Number(this?.query?.page) || 1;
-    const limit = Number(this?.query?.limit) || 1;
+    const limit = Number(this?.query?.limit) || 10;
     const skip = (page - 1) * limit;
 
-    this.modelQuery = this?.modelQuery?.skip(skip)?.limit(limit);
+    this.modelQuery = this.modelQuery.skip(skip).limit(limit);
     return this;
   }
   fields() {
