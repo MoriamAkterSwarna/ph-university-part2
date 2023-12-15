@@ -69,7 +69,7 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
       const deletedPreRequisiteCourses = preRequisiteCourses
         .filter(elm => elm.course && elm.isDeleted)
         .map(el => el.course);
-      //   console.log(deletedPreRequisiteCourses)
+      // console.log(deletedPreRequisiteCourses);
 
       const deletedCourses = await Course.findByIdAndUpdate(
         id,
