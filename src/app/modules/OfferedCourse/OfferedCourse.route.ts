@@ -9,10 +9,13 @@ router.post(
   validateRequest(OfferedCourseValidation.createOfferedCourseValidationSchema),
   OfferedCourseController.createOfferedCourse,
 );
+router.get('/', OfferedCourseController.getAllOfferedCourses);
+router.get('/:id', OfferedCourseController.getSingleOfferedCourses);
 router.patch(
   '/:id',
   validateRequest(OfferedCourseValidation.updateOfferedCourseValidationSchema),
   OfferedCourseController.updateOfferedCourse,
 );
+router.delete('/:id', OfferedCourseController.deleteOfferedCourse);
 
 export const OfferedCourseRoutes = router;
