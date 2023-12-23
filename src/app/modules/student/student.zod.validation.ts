@@ -48,7 +48,7 @@ export const LocalGuardianZodValidationSchema = z.object({
 export const createStudentZodValidationSchema = z.object({
   body: z.object({
     // id: z.string().min(1, { message: 'Student ID is required' }),
-    password: z.string().max(20),
+    password: z.string().max(20).optional(),
     student: z.object({
       name: UserNameZodValidationSchema,
       gender: z.enum(['male', 'female']),
@@ -69,7 +69,7 @@ export const createStudentZodValidationSchema = z.object({
         .min(1, { message: 'Permanent address is required' }),
       guardian: GuardianZodValidationSchema,
       localGuardian: LocalGuardianZodValidationSchema,
-      profileImg: z.string().optional(),
+      // profileImg: z.string().optional(),
       admissionSemester: z.string(),
       academicDepartment: z.string(),
     }),

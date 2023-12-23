@@ -2,6 +2,7 @@ import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { StudentControllers } from './student.controller';
 import { updateStudentValidationSchema } from './student.zod.validation';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -12,7 +13,11 @@ router.get('/get-all-students', StudentControllers.getAllStudents);
 //   '/get-single-student/:studentId',
 //   StudentControllers.getSingleStudent,
 // );
-router.get('/get-single-student/:id', StudentControllers.getSingleStudent);
+router.get(
+  '/get-single-student/:id',
+  auth('faculty', 'admin'),
+  StudentControllers.getSingleStudent,
+);
 // router.patch(
 //   '/:studentId',
 //   validateRequest(updateStudentValidationSchema),
